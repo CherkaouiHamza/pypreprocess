@@ -82,8 +82,10 @@ def generate_level1_stats_table(zmap, mask,
     clusters, _ = cluster_stats(zmap, mask, p_threshold,
                                 nulls=nulls, cluster_th=cluster_th,
                                 height_control=height_control)
+
     if clusters is not None:
-        clusters = [c for c in clusters if c['cluster_p_value'] < cluster_pval]
+        clusters = [c for c in clusters if c['cluster_p_value'] is not None and
+                                           c['cluster_p_value'] < cluster_pval]
     else:
         clusters = []
 

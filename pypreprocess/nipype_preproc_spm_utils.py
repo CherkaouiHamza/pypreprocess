@@ -192,6 +192,8 @@ def _do_subject_slice_timing(subject_data, TR, TA=None, spm_dir=None,
     stc_func = []
     subject_data.nipype_results['slice_timing'] = []
     for sess_func in subject_data.func:
+        #NOTE slice_order dtype should be float to avoid traits lib to crash
+        slice_order = np.array(list(slice_order + 1), dtype=float)
         stc_result = stc(in_files=sess_func, time_repetition=TR,
                          time_acquisition=TA, num_slices=nslices,
                          ref_slice=ref_slice + 1,
